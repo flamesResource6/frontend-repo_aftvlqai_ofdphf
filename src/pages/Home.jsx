@@ -8,6 +8,9 @@ const products = [
   { title: 'iPhone 15 Pro', price: 499999, img: 'https://images.unsplash.com/photo-1695048139263-2fbc322ecdc1?q=80&w=800&auto=format&fit=crop', badge: 'value', highlight: true },
   { title: 'Galaxy S24 Ultra', price: 379999, img: 'https://images.unsplash.com/photo-1708446274674-67a4e3ce1a30?q=80&w=800&auto=format&fit=crop', badge: 'rated' },
   { title: 'MacBook Air M3', price: 289999, img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop', badge: 'trend' },
+  { title: 'Redmi Note 13 Pro', price: 89999, img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop' },
+  { title: 'Haier Inverter AC 1.5T', price: 184999, img: 'https://images.unsplash.com/photo-1586201375761-83865001e31b?q=80&w=800&auto=format&fit=crop', badge: 'value' },
+  { title: 'TCL 55” 4K TV', price: 147999, img: 'https://images.unsplash.com/photo-1593359677879-8395d792d435?q=80&w=800&auto=format&fit=crop', badge: 'rated' },
 ]
 
 export default function Home() {

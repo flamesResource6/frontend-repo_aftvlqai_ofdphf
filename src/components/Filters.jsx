@@ -34,7 +34,7 @@ export default function Filters({ onChange }) {
           type="range"
           min="0"
           max="300000"
-          value={price[1]}
+          value={price[1]} 
           onChange={(e) => { const v=[price[0], +e.target.value]; setPrice(v); emit({ price: v, inStock, stores }) }}
           className="w-full accent-black mt-2"
         />
@@ -54,7 +54,7 @@ export default function Filters({ onChange }) {
             <span className="text-sm font-semibold capitalize">{k}</span>
             <button
               onClick={() => toggleStore(k)}
-              className={`h-7 w-14 border-[3px] border-black rounded-[12px] relative transition-colors ${stores[k] ? 'bg-[#1F4EFF]' : 'bg-white'}`}
+              className={`h-7 w-14 border-[3px] border-black rounded-[12px] relative transition-colors ${stores[k] ? 'bg-[#FFC400]' : 'bg-white'}`}
             >
               <span className={`absolute top-1/2 -translate-y-1/2 ${stores[k] ? 'left-7' : 'left-1'} h-4 w-4 bg-black rounded-[6px]`}></span>
             </button>

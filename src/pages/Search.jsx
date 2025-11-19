@@ -8,9 +8,11 @@ import SortBar from '../components/SortBar'
 const all = [
   { title: 'iPhone 15 Pro', price: 499999, rating: 4.8, badge: 'value', img: 'https://images.unsplash.com/photo-1695048139263-2fbc322ecdc1?q=80&w=800&auto=format&fit=crop' },
   { title: 'Galaxy S24 Ultra', price: 379999, rating: 4.7, badge: 'rated', img: 'https://images.unsplash.com/photo-1708446274674-67a4e3ce1a30?q=80&w=800&auto=format&fit=crop' },
-  { title: 'Redmi Note 12', price: 59999, rating: 4.3, badge: 'trend', img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop' },
+  { title: 'Redmi Note 13 Pro', price: 89999, rating: 4.5, badge: 'trend', img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop' },
   { title: 'Realme GT', price: 119999, rating: 4.4, img: 'https://images.unsplash.com/photo-1557180295-76eee20ae8aa?q=80&w=800&auto=format&fit=crop' },
   { title: 'Infinix Hot 30', price: 38999, rating: 4.0, img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=800&auto=format&fit=crop' },
+  { title: 'Haier Inverter AC 1.5T', price: 184999, rating: 4.2, img: 'https://images.unsplash.com/photo-1586201375761-83865001e31b?q=80&w=800&auto=format&fit=crop' },
+  { title: 'TCL 55” 4K TV', price: 147999, rating: 4.1, img: 'https://images.unsplash.com/photo-1593359677879-8395d792d435?q=80&w=800&auto=format&fit=crop' },
 ]
 
 export default function SearchPage() {

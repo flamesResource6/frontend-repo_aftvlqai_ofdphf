@@ -22,11 +22,14 @@ export default function SortBar({ onChange }) {
         <button
           key={o.key}
           onClick={() => handle(o.key)}
-          className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-extrabold border-r-2 border-black/10 last:border-r-0 transition-colors ${
-            active === o.key ? 'bg-[#1F4EFF] text-white' : 'text-black hover:bg-black/5'
+          className={`relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-extrabold border-r-2 border-black/10 last:border-r-0 transition-colors ${
+            active === o.key ? 'text-black bg-[#FFC400]' : 'text-black hover:bg-[#FFE082]'
           }`}
         >
           {o.label}
+          {active === o.key && (
+            <span className="absolute inset-0 pointer-events-none border-2 border-black rounded-[12px]"></span>
+          )}
         </button>
       ))}
     </div>
