@@ -21,7 +21,18 @@ export default function Home() {
     <div className="min-h-screen bg-white text-black">
       <header className="flex items-center justify-between px-6 sm:px-10 py-6">
         <div className="font-black text-2xl tracking-tight">BHAO.PK</div>
-        <ProfileButton />
+        <div className="flex items-center gap-3 sm:gap-4">
+          <a
+            href="/design-language.html"
+            download
+            className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 text-black font-black border-4 border-black rounded-xl shadow-[6px_6px_0_0_#000] hover:translate-y-[-2px] active:translate-y-0 transition-transform"
+            aria-label="Download the BHAO.PK design system file"
+          >
+            <span className="h-3 w-3 bg-black"></span>
+            <span className="text-sm">Download Design System</span>
+          </a>
+          <ProfileButton />
+        </div>
       </header>
 
       <main className="px-6 sm:px-10">
