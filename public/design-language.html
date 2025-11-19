@@ -12,18 +12,21 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: { inter: ['Inter Tight', 'ui-sans-serif', 'system-ui'] },
           colors: {
             off: '#F7F6F2',
+            charcoal: '#0B0B0B',
+            coal: '#111111',
+            neon: '#FFF200',
             saffron: {
               50:'#FFF8E1', 100:'#FFEDB3', 200:'#FFE180', 300:'#FFD54D', 400:'#FFC727',
               500:'#FFB300', 600:'#E6A100', 700:'#CC9000', 800:'#B37E00', 900:'#996D00'
             },
             amber: { 500:'#FFC107' },
-            gold: { 500:'#E3A008' },
-            coal: '#111111'
+            gold: { 500:'#E3A008' }
           },
           borderRadius: {
             super: '22px',
@@ -39,6 +42,7 @@
             caretBlink: { '0%, 49%': {opacity: 1}, '50%, 100%': {opacity: 0} },
             dropIn: { '0%': { transform:'translateY(-10px)', opacity:0 }, '100%': { transform:'translateY(0)', opacity:1 } },
             popIn: { '0%': { transform:'scale(0.95)', opacity:0 }, '100%': { transform:'scale(1)', opacity:1 } },
+            slideIn: { '0%': { transform:'translateY(14px)', opacity:0 }, '100%': { transform:'translateY(0)', opacity:1 } },
             ripple: {
               '0%': { transform:'scale(0)', opacity:0.5 },
               '80%': { opacity:0.2 },
@@ -49,6 +53,7 @@
             caretBlink: 'caretBlink 1s step-end infinite',
             dropIn: 'dropIn .18s ease-out both',
             popIn: 'popIn .18s ease-out both',
+            slideIn: 'slideIn .24s ease-out both',
             ripple: 'ripple 700ms ease-out'
           },
         }
@@ -59,6 +64,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     html, body { background: #F7F6F2; }
+    .dark html, .dark body { background: #0B0B0B; }
     /* Underline grow helper */
     .underline-grow { position: relative; }
     .underline-grow:after {
@@ -77,23 +83,37 @@
       width:10px; height:10px; background:rgba(0,0,0,.2); border-radius:9999px;
       transform:translate(-50%, -50%); animation:ripple 700ms ease-out;
     }
+    /* State simulation helpers */
+    .is-hover { transform: translateY(-2px); }
+    .is-active { transform: translateY(0); filter: saturate(0.9); }
+    .is-focus { outline: none; box-shadow: 0 0 0 4px #000 inset; }
+    .is-disabled { opacity: .5; pointer-events: none; }
+    /* Tilt helpers */
+    .tilt { transform-style: preserve-3d; will-change: transform; transition: transform .15s ease; }
+    .tilt-inner { transform: translateZ(16px); }
   </style>
 </head>
 <body class="font-inter text-coal tracking-tight">
-  <header class="sticky top-0 z-50 bg-off border-b-4 border-black">
+  <header class="sticky top-0 z-50 bg-off dark:bg-charcoal dark:text-off border-b-4 border-black">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 bg-saffron-500 border-4 border-black rounded-[20px] shadow-longSm"></div>
         <h1 class="text-2xl md:text-3xl font-semibold uppercase">BHAO.PK Design Language</h1>
       </div>
-      <button id="profileBtn" class="ripple-wrap flex items-center gap-2 bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm hover:translate-y-[-1px] transition">
-        <i data-lucide="user" class="w-5 h-5"></i>
-        <span class="font-semibold">Profile</span>
-      </button>
+      <div class="flex items-center gap-3">
+        <button id="darkToggle" class="ripple-wrap flex items-center gap-2 bg-off dark:bg-charcoal border-4 border-black px-3 py-2 rounded-heavy shadow-longSm">
+          <i data-lucide="moon" class="w-5 h-5"></i>
+          <span class="font-semibold">Dark</span>
+        </button>
+        <button id="profileBtn" class="ripple-wrap flex items-center gap-2 bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm hover:translate-y-[-1px] transition">
+          <i data-lucide="user" class="w-5 h-5"></i>
+          <span class="font-semibold">Profile</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-6 py-10 space-y-16">
+  <main class="max-w-7xl mx-auto px-6 py-10 space-y-16 dark:text-off">
     <!-- Palette -->
     <section id="palette" class="space-y-6">
       <div class="flex items-center gap-3">
@@ -102,10 +122,10 @@
       </div>
       <p class="text-sm">Ultra-clean, geometric, solid colors only. Off-white base, saffron/gold/amber accents, black borders and shadows.</p>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-off border-4 border-black rounded-super p-6 shadow-long">
-          <div class="w-full h-24 bg-off border-4 border-black rounded-heavy"></div>
-          <div class="mt-4 font-semibold">Off White</div>
-          <div class="text-xs">#F7F6F2</div>
+        <div class="bg-off dark:bg-charcoal border-4 border-black rounded-super p-6 shadow-long">
+          <div class="w-full h-24 bg-off dark:bg-charcoal border-4 border-black rounded-heavy"></div>
+          <div class="mt-4 font-semibold">Off White / Charcoal</div>
+          <div class="text-xs">#F7F6F2 / #0B0B0B</div>
         </div>
         <div class="bg-saffron-500 border-4 border-black rounded-super p-6 shadow-long">
           <div class="w-full h-24 bg-saffron-500 border-4 border-black rounded-heavy"></div>
@@ -125,6 +145,37 @@
       </div>
     </section>
 
+    <!-- Dark Mode Variants -->
+    <section id="dark-mode" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-700 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Dark Mode Variants</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
+          <div class="text-sm mb-3">Panel</div>
+          <div class="h-24 bg-off dark:bg-charcoal border-4 border-black rounded-heavy"></div>
+          <div class="mt-3 text-xs">Solid backgrounds only; no gradients.</div>
+        </div>
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
+          <div class="text-sm mb-3">Neon-in-yellow accents</div>
+          <div class="flex items-center gap-3">
+            <span class="px-3 py-1 bg-neon text-black border-2 border-black long-shadow text-sm font-semibold">NEON</span>
+            <span class="px-3 py-1 bg-saffron-500 text-black border-2 border-black long-shadow text-sm font-semibold">Saffron</span>
+          </div>
+          <p class="text-xs mt-3">Use bright yellow for highlights on dark. Keep thick black borders.</p>
+        </div>
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
+          <div class="text-sm mb-3">Controls (Dark)</div>
+          <button class="bg-neon border-4 border-black px-4 py-2 rounded-heavy shadow-longSm text-black font-semibold">Action</button>
+          <div class="mt-3 flex items-center gap-2">
+            <span class="w-5 h-5 bg-neon border-4 border-black rounded-md"></span>
+            <span class="text-xs">Toggle, focus rings remain black.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Typography -->
     <section id="typography" class="space-y-6">
       <div class="flex items-center gap-3">
@@ -132,11 +183,11 @@
         <h2 class="text-3xl md:text-4xl font-semibold uppercase">Typography</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
           <h3 class="text-5xl md:text-6xl font-semibold tracking-[-0.02em]">Oversized Heading</h3>
           <p class="mt-2 text-sm">Inter Tight 600, crisp tracking</p>
         </div>
-        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
           <p class="text-lg tracking-tight">Body text — clean and compact, micro letter-spacing for clarity.</p>
           <p class="text-sm mt-3 opacity-80">Caption — minimal, aligned to the 8px grid.</p>
         </div>
@@ -153,21 +204,63 @@
         <button class="bg-saffron-500 border-4 border-black px-5 py-3 rounded-heavy shadow-longSm hover:translate-y-[-2px] transition font-semibold">Primary</button>
         <button class="bg-gold-500 border-4 border-black px-5 py-3 rounded-heavy shadow-longSm hover:translate-y-[-2px] transition font-semibold">Gold</button>
         <button class="bg-amber-500 border-4 border-black px-5 py-3 rounded-heavy shadow-longSm hover:translate-y-[-2px] transition font-semibold">Amber</button>
-        <button class="bg-off border-4 border-black px-5 py-3 rounded-heavy shadow-longSm hover:translate-y-[-2px] transition font-semibold">Neutral</button>
+        <button class="bg-off dark:bg-charcoal border-4 border-black px-5 py-3 rounded-heavy shadow-longSm hover:translate-y-[-2px] transition font-semibold">Neutral</button>
       </div>
       <div class="flex flex-wrap gap-6 mt-4 items-center">
         <label class="inline-flex items-center gap-2 select-none">
-          <input type="checkbox" class="appearance-none w-10 h-6 border-4 border-black rounded-heavy relative transition checked:bg-saffron-500 bg-off shadow-longSm" />
+          <input type="checkbox" class="appearance-none w-10 h-6 border-4 border-black rounded-heavy relative transition checked:bg-saffron-500 bg-off dark:bg-charcoal shadow-longSm" />
           <span class="text-sm">Toggle</span>
         </label>
         <label class="inline-flex items-center gap-2 select-none">
-          <input type="radio" name="r" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off shadow-longSm checked:bg-saffron-500 transition" />
+          <input type="radio" name="r" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off dark:bg-charcoal shadow-longSm checked:bg-saffron-500 transition" />
           <span class="text-sm">Radio</span>
         </label>
         <label class="inline-flex items-center gap-2 select-none">
-          <input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off shadow-longSm checked:bg-saffron-500 transition" />
+          <input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off dark:bg-charcoal shadow-longSm checked:bg-saffron-500 transition" />
           <span class="text-sm">Checkbox</span>
         </label>
+      </div>
+    </section>
+
+    <!-- Control States -->
+    <section id="states" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-500 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Control States</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Buttons states -->
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
+          <div class="font-semibold mb-3">Button</div>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="bg-saffron-500 border-4 border-black px-3 py-2 rounded-heavy shadow-longSm font-semibold">Default</button>
+            <button class="bg-saffron-500 border-4 border-black px-3 py-2 rounded-heavy shadow-longSm font-semibold is-hover">Hover</button>
+            <button class="bg-saffron-500 border-4 border-black px-3 py-2 rounded-heavy shadow-longSm font-semibold is-active">Active</button>
+            <button class="bg-saffron-500 border-4 border-black px-3 py-2 rounded-heavy shadow-longSm font-semibold is-focus">Focus</button>
+            <button class="bg-saffron-500 border-4 border-black px-3 py-2 rounded-heavy shadow-longSm font-semibold is-disabled">Disabled</button>
+          </div>
+        </div>
+        <!-- Input states -->
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
+          <div class="font-semibold mb-3">Text Input</div>
+          <div class="space-y-3">
+            <input class="w-full bg-off dark:bg-charcoal border-4 border-black rounded-heavy px-3 py-2" placeholder="Default" />
+            <input class="w-full bg-off dark:bg-charcoal border-4 border-black rounded-heavy px-3 py-2 is-hover" placeholder="Hover" />
+            <input class="w-full bg-off dark:bg-charcoal border-4 border-black rounded-heavy px-3 py-2 is-focus" placeholder="Focus" />
+            <input disabled class="w-full bg-off dark:bg-charcoal border-4 border-black rounded-heavy px-3 py-2 is-disabled" placeholder="Disabled" />
+          </div>
+        </div>
+        <!-- Toggle states -->
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
+          <div class="font-semibold mb-3">Toggle</div>
+          <div class="grid grid-cols-2 gap-3 items-center">
+            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-10 h-6 border-4 border-black rounded-heavy bg-off dark:bg-charcoal" /><span class="text-xs">Default</span></label>
+            <label class="flex items-center gap-2 is-hover"><input type="checkbox" class="appearance-none w-10 h-6 border-4 border-black rounded-heavy bg-off dark:bg-charcoal" /><span class="text-xs">Hover</span></label>
+            <label class="flex items-center gap-2 is-active"><input type="checkbox" class="appearance-none w-10 h-6 border-4 border-black rounded-heavy bg-saffron-500" checked /><span class="text-xs">Active</span></label>
+            <label class="flex items-center gap-2 is-focus"><input type="checkbox" class="appearance-none w-10 h-6 border-4 border-black rounded-heavy bg-saffron-500" checked /><span class="text-xs">Focus</span></label>
+            <label class="flex items-center gap-2 is-disabled"><input type="checkbox" class="appearance-none w-10 h-6 border-4 border-black rounded-heavy bg-off dark:bg-charcoal" disabled /><span class="text-xs">Disabled</span></label>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -181,7 +274,7 @@
         <span class="px-3 py-1 bg-saffron-500 text-black border-2 border-black long-shadow text-sm font-semibold">Best Value</span>
         <span class="px-3 py-1 bg-amber-500 text-black border-2 border-black long-shadow text-sm font-semibold">Top Rated</span>
         <span class="px-3 py-1 bg-gold-500 text-black border-2 border-black long-shadow text-sm font-semibold">Hot</span>
-        <span class="px-3 py-1 bg-off text-black border-2 border-black long-shadow text-sm font-semibold">New</span>
+        <span class="px-3 py-1 bg-off dark:bg-charcoal text-black border-2 border-black long-shadow text-sm font-semibold">New</span>
       </div>
     </section>
 
@@ -219,17 +312,17 @@
         <div class="w-2 h-8 bg-saffron-600 border-2 border-black"></div>
         <h2 class="text-3xl md:text-4xl font-semibold uppercase">Hero Search</h2>
       </div>
-      <div class="bg-off border-4 border-black rounded-super p-6 shadow-long">
+      <div class="bg-off dark:bg-charcoal border-4 border-black rounded-super p-6 shadow-long">
         <div class="max-w-3xl">
           <label class="block text-sm mb-2">Find the best price</label>
           <div class="underline-grow">
-            <div class="flex items-center gap-3 border-4 border-black rounded-[18px] px-4 py-3 bg-off">
+            <div class="flex items-center gap-3 border-4 border-black rounded-[18px] px-4 py-3 bg-off dark:bg-charcoal">
               <i data-lucide="search" class="w-5 h-5"></i>
               <input id="searchInput" placeholder="Search phones, TVs, ACs…" class="w-full bg-transparent outline-none" />
               <span class="w-3 h-6 bg-coal animate-caretBlink"></span>
               <button class="bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm font-semibold">Search</button>
             </div>
-            <div id="dropdown" class="hidden mt-3 border-4 border-black rounded-heavy bg-off shadow-longSm overflow-hidden">
+            <div id="dropdown" class="hidden mt-3 border-4 border-black rounded-heavy bg-off dark:bg-charcoal shadow-longSm overflow-hidden">
               <div class="px-4 py-3 flex items-center gap-3"><span class="w-3 h-3 bg-saffron-500 border-2 border-black"></span> iPhone 15 Pro Max</div>
               <div class="px-4 py-3 flex items-center gap-3"><span class="w-3 h-3 bg-amber-500 border-2 border-black"></span> Samsung S24 Ultra</div>
               <div class="px-4 py-3 flex items-center gap-3"><span class="w-3 h-3 bg-gold-500 border-2 border-black"></span> TCL C845 65"</div>
@@ -246,19 +339,19 @@
         <h2 class="text-3xl md:text-4xl font-semibold uppercase">Sort Bar & Filters</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="border-4 border-black rounded-super p-4 bg-off shadow-long">
+        <div class="border-4 border-black rounded-super p-4 bg-off dark:bg-charcoal shadow-long">
           <div class="flex gap-3">
             <button class="bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm font-semibold">Price</button>
             <button class="bg-amber-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm font-semibold">Rating</button>
             <button class="bg-gold-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm font-semibold">Newest</button>
           </div>
         </div>
-        <div class="border-4 border-black rounded-super p-4 bg-off shadow-long">
+        <div class="border-4 border-black rounded-super p-4 bg-off dark:bg-charcoal shadow-long">
           <div class="grid grid-cols-2 gap-3">
-            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off checked:bg-saffron-500 shadow-longSm"/> Daraz</label>
-            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off checked:bg-saffron-500 shadow-longSm"/> Shophive</label>
-            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off checked:bg-saffron-500 shadow-longSm"/> Mega</label>
-            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off checked:bg-saffron-500 shadow-longSm"/> Telemart</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off dark:bg-charcoal checked:bg-saffron-500 shadow-longSm"/> Daraz</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off dark:bg-charcoal checked:bg-saffron-500 shadow-longSm"/> Shophive</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off dark:bg-charcoal checked:bg-saffron-500 shadow-longSm"/> Mega</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off dark:bg-charcoal checked:bg-saffron-500 shadow-longSm"/> Telemart</label>
           </div>
         </div>
       </div>
@@ -272,7 +365,7 @@
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Card -->
-        <div class="group bg-off border-4 border-black rounded-super p-4 shadow-long transition hover:translate-y-[-2px]">
+        <div class="group bg-off dark:bg-charcoal border-4 border-black rounded-super p-4 shadow-long transition hover:translate-y-[-2px]">
           <div class="relative overflow-hidden rounded-heavy border-4 border-black">
             <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop" alt="Phone" class="w-full h-40 object-cover transition-transform duration-200 group-hover:scale-[1.03]"/>
             <!-- corner accents -->
@@ -292,7 +385,7 @@
           </div>
         </div>
         <!-- Card -->
-        <div class="group bg-off border-4 border-black rounded-super p-4 shadow-long">
+        <div class="group bg-off dark:bg-charcoal border-4 border-black rounded-super p-4 shadow-long">
           <div class="relative overflow-hidden rounded-heavy border-4 border-black">
             <img src="https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxUVnxlbnwwfDB8fHwxNzYzNTUyMzkxfDA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80" alt="TV" class="w-full h-40 object-cover transition-transform duration-200 group-hover:scale-[1.03]"/>
             <div class="absolute left-0 top-0 w-6 h-2 bg-saffron-500 border-b-4 border-r-4 border-black"></div>
@@ -311,7 +404,7 @@
           </div>
         </div>
         <!-- Card -->
-        <div class="group bg-off border-4 border-black rounded-super p-4 shadow-long">
+        <div class="group bg-off dark:bg-charcoal border-4 border-black rounded-super p-4 shadow-long">
           <div class="relative overflow-hidden rounded-heavy border-4 border-black">
             <img src="https://images.unsplash.com/photo-1718203862467-c33159fdc504?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxBQ3xlbnwwfDB8fHwxNzYzNTUyMzkxfDA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80" alt="AC" class="w-full h-40 object-cover transition-transform duration-200 group-hover:scale-[1.03]"/>
             <div class="absolute left-0 top-0 w-6 h-2 bg-saffron-500 border-b-4 border-r-4 border-black"></div>
@@ -332,6 +425,50 @@
       </div>
     </section>
 
+    <!-- Motion Grid (Tilt, Slide, Parallax) -->
+    <section id="motion" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-600 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Motion Grid</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Tilt -->
+        <div class="border-4 border-black rounded-super p-4 bg-off dark:bg-charcoal shadow-long">
+          <div class="font-semibold mb-3">Tilt on cursor</div>
+          <div class="tilt group bg-off dark:bg-charcoal border-4 border-black rounded-super p-4 shadow-longMd" data-tilt>
+            <div class="tilt-inner">
+              <div class="h-28 rounded-heavy border-4 border-black bg-saffron-500"></div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="font-semibold">Card</span>
+                <span class="px-2 py-0.5 bg-amber-500 border-2 border-black text-xs font-semibold">Demo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide-in -->
+        <div class="border-4 border-black rounded-super p-4 bg-off dark:bg-charcoal shadow-long">
+          <div class="font-semibold mb-3 flex items-center justify-between">
+            <span>Slide in</span>
+            <button id="slideToggle" class="bg-saffron-500 border-4 border-black px-3 py-1 rounded-heavy shadow-longSm text-sm font-semibold">Replay</button>
+          </div>
+          <div class="space-y-3" id="slideGrid">
+            <div class="h-10 bg-saffron-500 border-4 border-black rounded-heavy shadow-longSm animate-slideIn"></div>
+            <div class="h-10 bg-amber-500 border-4 border-black rounded-heavy shadow-longSm animate-slideIn" style="animation-delay:.06s"></div>
+            <div class="h-10 bg-gold-500 border-4 border-black rounded-heavy shadow-longSm animate-slideIn" style="animation-delay:.12s"></div>
+          </div>
+        </div>
+        <!-- Parallax -->
+        <div class="border-4 border-black rounded-super p-4 bg-off dark:bg-charcoal shadow-long">
+          <div class="font-semibold mb-3">Parallax hover</div>
+          <div class="relative overflow-hidden rounded-heavy border-4 border-black h-36 group" data-parallax>
+            <img src="https://images.unsplash.com/photo-1629380321590-3b3f75d66dec?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxjZXJhbWljJTIwcG90dGVyeSUyMGhhbmRtYWRlfGVufDB8MHx8fDE3NjM1MTI1ODN8MA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover" data-parallax-img />
+            <div class="absolute left-0 top-0 w-6 h-2 bg-saffron-500 border-b-4 border-r-4 border-black"></div>
+            <div class="absolute right-0 bottom-0 w-6 h-2 bg-amber-500 border-t-4 border-l-4 border-black"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Animation Showcases -->
     <section id="animations" class="space-y-6">
       <div class="flex items-center gap-3">
@@ -339,19 +476,19 @@
         <h2 class="text-3xl md:text-4xl font-semibold uppercase">Animations</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
           <div class="font-semibold mb-2">Caret blink</div>
           <div class="flex items-center gap-2">
             <input class="w-full bg-transparent outline-none border-4 border-black rounded-heavy px-3 py-2" placeholder="Type…" />
             <span class="w-2 h-6 bg-coal animate-caretBlink"></span>
           </div>
         </div>
-        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
           <div class="font-semibold mb-2">Drop-in</div>
           <div id="dropBtn" class="bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm inline-block cursor-pointer">Toggle</div>
-          <div id="dropBox" class="hidden mt-3 border-4 border-black rounded-heavy p-4 bg-off shadow-longSm">I drop in smoothly.</div>
+          <div id="dropBox" class="hidden mt-3 border-4 border-black rounded-heavy p-4 bg-off dark:bg-charcoal shadow-longSm">I drop in smoothly.</div>
         </div>
-        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+        <div class="border-4 border-black rounded-super p-6 bg-off dark:bg-charcoal shadow-long">
           <div class="font-semibold mb-2">Pop-in & Ripple</div>
           <button id="popBtn" class="ripple-wrap bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm">Click Me</button>
         </div>
@@ -373,7 +510,7 @@
 
   </main>
 
-  <footer class="py-10 border-t-4 border-black mt-16 bg-off">
+  <footer class="py-10 border-t-4 border-black mt-16 bg-off dark:bg-charcoal dark:text-off">
     <div class="max-w-7xl mx-auto px-6 text-sm flex flex-wrap items-center gap-3">
       <span class="px-2 py-1 bg-saffron-500 border-2 border-black long-shadow">Flat • Geometric • Saffron</span>
       <span class="px-2 py-1 bg-amber-500 border-2 border-black long-shadow">8px Grid</span>
@@ -384,6 +521,15 @@
   <script>
     // Activate Lucide
     lucide.createIcons();
+
+    // Dark mode toggle
+    const darkToggle = document.getElementById('darkToggle');
+    const root = document.documentElement;
+    if (darkToggle) {
+      darkToggle.addEventListener('click', () => {
+        root.classList.toggle('dark');
+      });
+    }
 
     // Profile ripple coordinates
     const profileBtn = document.getElementById('profileBtn');
@@ -448,6 +594,51 @@
         popBtn.classList.add('animate-popIn');
       });
     }
+
+    // Slide replay
+    const slideToggle = document.getElementById('slideToggle');
+    const slideGrid = document.getElementById('slideGrid');
+    if (slideToggle && slideGrid) {
+      slideToggle.addEventListener('click', () => {
+        slideGrid.querySelectorAll('[class*="animate-slideIn"]').forEach((el) => {
+          el.classList.remove('animate-slideIn');
+          void el.offsetWidth;
+          el.classList.add('animate-slideIn');
+        });
+      });
+    }
+
+    // Tilt interaction
+    const tiltEls = document.querySelectorAll('[data-tilt]');
+    tiltEls.forEach((card) => {
+      const damp = 20; // lower = more tilt
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rx = ((y - rect.height / 2) / rect.height) * -damp;
+        const ry = ((x - rect.width / 2) / rect.width) * damp;
+        card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+
+    // Parallax interaction
+    const parallaxWraps = document.querySelectorAll('[data-parallax]');
+    parallaxWraps.forEach((wrap) => {
+      const img = wrap.querySelector('[data-parallax-img]');
+      wrap.addEventListener('mousemove', (e) => {
+        const rect = wrap.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        img.style.transform = `scale(1.08) translate(${x * 10}px, ${y * 10}px)`;
+      });
+      wrap.addEventListener('mouseleave', () => {
+        img.style.transform = 'scale(1) translate(0,0)';
+      });
+    });
   </script>
 </body>
 </html>
