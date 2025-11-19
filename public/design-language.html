@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BHAO.PK — Design Language</title>
+  <!-- Inter Tight -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CDN (standalone for this showcase page) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { inter: ['Inter Tight', 'ui-sans-serif', 'system-ui'] },
+          colors: {
+            off: '#F7F6F2',
+            saffron: {
+              50:'#FFF8E1', 100:'#FFEDB3', 200:'#FFE180', 300:'#FFD54D', 400:'#FFC727',
+              500:'#FFB300', 600:'#E6A100', 700:'#CC9000', 800:'#B37E00', 900:'#996D00'
+            },
+            amber: { 500:'#FFC107' },
+            gold: { 500:'#E3A008' },
+            coal: '#111111'
+          },
+          borderRadius: {
+            super: '22px',
+            heavy: '14px',
+          },
+          boxShadow: {
+            long: '12px 12px 0 0 #000',
+            longMd: '8px 8px 0 0 #000',
+            longSm: '6px 6px 0 0 #000',
+            hard: '0 0 0 4px #000'
+          },
+          keyframes: {
+            caretBlink: { '0%, 49%': {opacity: 1}, '50%, 100%': {opacity: 0} },
+            dropIn: { '0%': { transform:'translateY(-10px)', opacity:0 }, '100%': { transform:'translateY(0)', opacity:1 } },
+            popIn: { '0%': { transform:'scale(0.95)', opacity:0 }, '100%': { transform:'scale(1)', opacity:1 } },
+            ripple: {
+              '0%': { transform:'scale(0)', opacity:0.5 },
+              '80%': { opacity:0.2 },
+              '100%': { transform:'scale(3)', opacity:0 }
+            }
+          },
+          animation: {
+            caretBlink: 'caretBlink 1s step-end infinite',
+            dropIn: 'dropIn .18s ease-out both',
+            popIn: 'popIn .18s ease-out both',
+            ripple: 'ripple 700ms ease-out'
+          },
+        }
+      }
+    }
+  </script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    html, body { background: #F7F6F2; }
+    /* Underline grow helper */
+    .underline-grow { position: relative; }
+    .underline-grow:after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -2px; height: 3px; width: 0;
+      background: #FFB300; transition: width .25s ease;
+    }
+    .underline-grow:focus-within:after, .underline-grow:hover:after { width: 100%; }
+    /* Long shadow helper for badges */
+    .long-shadow { box-shadow: 6px 6px 0 0 #000; }
+    /* Ripple container */
+    .ripple-wrap { position: relative; overflow: hidden; }
+    .ripple-wrap:active::after {
+      content:''; position:absolute; inset:auto; left:var(--x,50%); top:var(--y,50%);
+      width:10px; height:10px; background:rgba(0,0,0,.2); border-radius:9999px;
+      transform:translate(-50%, -50%); animation:ripple 700ms ease-out;
+    }
+  </style>
+</head>
+<body class="font-inter text-coal tracking-tight">
+  <header class="sticky top-0 z-50 bg-off border-b-4 border-black">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-saffron-500 border-4 border-black rounded-[20px] shadow-longSm"></div>
+        <h1 class="text-2xl md:text-3xl font-semibold uppercase">BHAO.PK Design Language</h1>
+      </div>
+      <button id="profileBtn" class="ripple-wrap flex items-center gap-2 bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm hover:translate-y-[-1px] transition">
+        <i data-lucide="user" class="w-5 h-5"></i>
+        <span class="font-semibold">Profile</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-10 space-y-16">
+    <!-- Palette -->
+    <section id="palette" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-600 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Palette</h2>
+      </div>
+      <p class="text-sm">Ultra-clean, geometric, solid colors only. Off-white base, saffron/gold/amber accents, black borders and shadows.</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-off border-4 border-black rounded-super p-6 shadow-long">
+          <div class="w-full h-24 bg-off border-4 border-black rounded-heavy"></div>
+          <div class="mt-4 font-semibold">Off White</div>
+          <div class="text-xs">#F7F6F2</div>
+        </div>
+        <div class="bg-saffron-500 border-4 border-black rounded-super p-6 shadow-long">
+          <div class="w-full h-24 bg-saffron-500 border-4 border-black rounded-heavy"></div>
+          <div class="mt-4 font-semibold">Saffron 500</div>
+          <div class="text-xs">#FFB300</div>
+        </div>
+        <div class="bg-amber-500 border-4 border-black rounded-super p-6 shadow-long">
+          <div class="w-full h-24 bg-amber-500 border-4 border-black rounded-heavy"></div>
+          <div class="mt-4 font-semibold">Amber 500</div>
+          <div class="text-xs">#FFC107</div>
+        </div>
+        <div class="bg-gold-500 border-4 border-black rounded-super p-6 shadow-long">
+          <div class="w-full h-24 bg-gold-500 border-4 border-black rounded-heavy"></div>
+          <div class="mt-4 font-semibold">Gold 500</div>
+          <div class="text-xs">#E3A008</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography -->
+    <section id="typography" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-700 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Typography</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+          <h3 class="text-5xl md:text-6xl font-semibold tracking-[-0.02em]">Oversized Heading</h3>
+          <p class="mt-2 text-sm">Inter Tight 600, crisp tracking</p>
+        </div>
+        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+          <p class="text-lg tracking-tight">Body text — clean and compact, micro letter-spacing for clarity.</p>
+          <p class="text-sm mt-3 opacity-80">Caption — minimal, aligned to the 8px grid.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buttons & Controls -->
+    <section id="buttons" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-600 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Buttons & Controls</h2>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <button class="bg-saffron-500 border-4 border-black px-5 py-3 rounded-heavy shadow-longSm hover:translate-y-[-2px] transition font-semibold">Primary</button>
+        <button class="bg-gold-500 border-4 border-black px-5 py-3 rounded-heavy shadow-longSm hover:translate-y-[-2px] transition font-semibold">Gold</button>
+        <button class="bg-amber-500 border-4 border-black px-5 py-3 rounded-heavy shadow-longSm hover:translate-y-[-2px] transition font-semibold">Amber</button>
+        <button class="bg-off border-4 border-black px-5 py-3 rounded-heavy shadow-longSm hover:translate-y-[-2px] transition font-semibold">Neutral</button>
+      </div>
+      <div class="flex flex-wrap gap-6 mt-4 items-center">
+        <label class="inline-flex items-center gap-2 select-none">
+          <input type="checkbox" class="appearance-none w-10 h-6 border-4 border-black rounded-heavy relative transition checked:bg-saffron-500 bg-off shadow-longSm" />
+          <span class="text-sm">Toggle</span>
+        </label>
+        <label class="inline-flex items-center gap-2 select-none">
+          <input type="radio" name="r" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off shadow-longSm checked:bg-saffron-500 transition" />
+          <span class="text-sm">Radio</span>
+        </label>
+        <label class="inline-flex items-center gap-2 select-none">
+          <input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off shadow-longSm checked:bg-saffron-500 transition" />
+          <span class="text-sm">Checkbox</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Badges -->
+    <section id="badges" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-500 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Badges</h2>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <span class="px-3 py-1 bg-saffron-500 text-black border-2 border-black long-shadow text-sm font-semibold">Best Value</span>
+        <span class="px-3 py-1 bg-amber-500 text-black border-2 border-black long-shadow text-sm font-semibold">Top Rated</span>
+        <span class="px-3 py-1 bg-gold-500 text-black border-2 border-black long-shadow text-sm font-semibold">Hot</span>
+        <span class="px-3 py-1 bg-off text-black border-2 border-black long-shadow text-sm font-semibold">New</span>
+      </div>
+    </section>
+
+    <!-- Icons -->
+    <section id="icons" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-700 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Icons</h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6">
+        <div class="p-4 bg-saffron-50 border-4 border-black rounded-heavy shadow-longSm flex flex-col items-center gap-2">
+          <i data-lucide="search" class="w-6 h-6"></i><span class="text-xs">Search</span>
+        </div>
+        <div class="p-4 bg-saffron-100 border-4 border-black rounded-heavy shadow-longSm flex flex-col items-center gap-2">
+          <i data-lucide="filter" class="w-6 h-6"></i><span class="text-xs">Filter</span>
+        </div>
+        <div class="p-4 bg-saffron-200 border-4 border-black rounded-heavy shadow-longSm flex flex-col items-center gap-2">
+          <i data-lucide="sliders" class="w-6 h-6"></i><span class="text-xs">Sliders</span>
+        </div>
+        <div class="p-4 bg-saffron-300 border-4 border-black rounded-heavy shadow-longSm flex flex-col items-center gap-2">
+          <i data-lucide="star" class="w-6 h-6"></i><span class="text-xs">Star</span>
+        </div>
+        <div class="p-4 bg-saffron-400 border-4 border-black rounded-heavy shadow-longSm flex flex-col items-center gap-2">
+          <i data-lucide="user" class="w-6 h-6"></i><span class="text-xs">User</span>
+        </div>
+        <div class="p-4 bg-saffron-500 border-4 border-black rounded-heavy shadow-longSm flex flex-col items-center gap-2">
+          <i data-lucide="shopping-cart" class="w-6 h-6"></i><span class="text-xs">Cart</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hero Search -->
+    <section id="hero-search" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-600 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Hero Search</h2>
+      </div>
+      <div class="bg-off border-4 border-black rounded-super p-6 shadow-long">
+        <div class="max-w-3xl">
+          <label class="block text-sm mb-2">Find the best price</label>
+          <div class="underline-grow">
+            <div class="flex items-center gap-3 border-4 border-black rounded-[18px] px-4 py-3 bg-off">
+              <i data-lucide="search" class="w-5 h-5"></i>
+              <input id="searchInput" placeholder="Search phones, TVs, ACs…" class="w-full bg-transparent outline-none" />
+              <span class="w-3 h-6 bg-coal animate-caretBlink"></span>
+              <button class="bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm font-semibold">Search</button>
+            </div>
+            <div id="dropdown" class="hidden mt-3 border-4 border-black rounded-heavy bg-off shadow-longSm overflow-hidden">
+              <div class="px-4 py-3 flex items-center gap-3"><span class="w-3 h-3 bg-saffron-500 border-2 border-black"></span> iPhone 15 Pro Max</div>
+              <div class="px-4 py-3 flex items-center gap-3"><span class="w-3 h-3 bg-amber-500 border-2 border-black"></span> Samsung S24 Ultra</div>
+              <div class="px-4 py-3 flex items-center gap-3"><span class="w-3 h-3 bg-gold-500 border-2 border-black"></span> TCL C845 65"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sort bar & Filters -->
+    <section id="sort-filters" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-500 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Sort Bar & Filters</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="border-4 border-black rounded-super p-4 bg-off shadow-long">
+          <div class="flex gap-3">
+            <button class="bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm font-semibold">Price</button>
+            <button class="bg-amber-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm font-semibold">Rating</button>
+            <button class="bg-gold-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm font-semibold">Newest</button>
+          </div>
+        </div>
+        <div class="border-4 border-black rounded-super p-4 bg-off shadow-long">
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off checked:bg-saffron-500 shadow-longSm"/> Daraz</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off checked:bg-saffron-500 shadow-longSm"/> Shophive</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off checked:bg-saffron-500 shadow-longSm"/> Mega</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="appearance-none w-5 h-5 border-4 border-black rounded-md bg-off checked:bg-saffron-500 shadow-longSm"/> Telemart</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Cards -->
+    <section id="cards" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-700 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Product Cards</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card -->
+        <div class="group bg-off border-4 border-black rounded-super p-4 shadow-long transition hover:translate-y-[-2px]">
+          <div class="relative overflow-hidden rounded-heavy border-4 border-black">
+            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop" alt="Phone" class="w-full h-40 object-cover transition-transform duration-200 group-hover:scale-[1.03]"/>
+            <!-- corner accents -->
+            <div class="absolute left-0 top-0 w-6 h-2 bg-saffron-500 border-b-4 border-r-4 border-black"></div>
+            <div class="absolute right-0 bottom-0 w-6 h-2 bg-amber-500 border-t-4 border-l-4 border-black"></div>
+          </div>
+          <div class="mt-3">
+            <h3 class="font-semibold text-lg underline-offset-4 group-hover:underline">iPhone 15 Pro</h3>
+            <div class="flex items-center gap-2 mt-2">
+              <span class="px-2 py-0.5 bg-saffron-500 border-2 border-black text-xs font-semibold">Best Value</span>
+              <span class="px-2 py-0.5 bg-amber-500 border-2 border-black text-xs font-semibold">256 GB</span>
+            </div>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="font-bold text-xl">Rs. 345,999</div>
+              <button class="bg-saffron-500 border-4 border-black px-3 py-2 rounded-heavy shadow-longSm font-semibold">Compare</button>
+            </div>
+          </div>
+        </div>
+        <!-- Card -->
+        <div class="group bg-off border-4 border-black rounded-super p-4 shadow-long">
+          <div class="relative overflow-hidden rounded-heavy border-4 border-black">
+            <img src="https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxUVnxlbnwwfDB8fHwxNzYzNTUyMzkxfDA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80" alt="TV" class="w-full h-40 object-cover transition-transform duration-200 group-hover:scale-[1.03]"/>
+            <div class="absolute left-0 top-0 w-6 h-2 bg-saffron-500 border-b-4 border-r-4 border-black"></div>
+            <div class="absolute right-0 bottom-0 w-6 h-2 bg-amber-500 border-t-4 border-l-4 border-black"></div>
+          </div>
+          <div class="mt-3">
+            <h3 class="font-semibold text-lg underline-offset-4 group-hover:underline">TCL C845 65"</h3>
+            <div class="flex items-center gap-2 mt-2">
+              <span class="px-2 py-0.5 bg-gold-500 border-2 border-black text-xs font-semibold">Mini-LED</span>
+              <span class="px-2 py-0.5 bg-saffron-500 border-2 border-black text-xs font-semibold">144Hz</span>
+            </div>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="font-bold text-xl">Rs. 289,999</div>
+              <button class="bg-saffron-500 border-4 border-black px-3 py-2 rounded-heavy shadow-longSm font-semibold">Compare</button>
+            </div>
+          </div>
+        </div>
+        <!-- Card -->
+        <div class="group bg-off border-4 border-black rounded-super p-4 shadow-long">
+          <div class="relative overflow-hidden rounded-heavy border-4 border-black">
+            <img src="https://images.unsplash.com/photo-1718203862467-c33159fdc504?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxBQ3xlbnwwfDB8fHwxNzYzNTUyMzkxfDA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80" alt="AC" class="w-full h-40 object-cover transition-transform duration-200 group-hover:scale-[1.03]"/>
+            <div class="absolute left-0 top-0 w-6 h-2 bg-saffron-500 border-b-4 border-r-4 border-black"></div>
+            <div class="absolute right-0 bottom-0 w-6 h-2 bg-amber-500 border-t-4 border-l-4 border-black"></div>
+          </div>
+          <div class="mt-3">
+            <h3 class="font-semibold text-lg underline-offset-4 group-hover:underline">Inverter AC 1.5 Ton</h3>
+            <div class="flex items-center gap-2 mt-2">
+              <span class="px-2 py-0.5 bg-amber-500 border-2 border-black text-xs font-semibold">A+</span>
+              <span class="px-2 py-0.5 bg-saffron-500 border-2 border-black text-xs font-semibold">Low Noise</span>
+            </div>
+            <div class="mt-3 flex items-center justify-between">
+              <div class="font-bold text-xl">Rs. 199,999</div>
+              <button class="bg-saffron-500 border-4 border-black px-3 py-2 rounded-heavy shadow-longSm font-semibold">Compare</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Animation Showcases -->
+    <section id="animations" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-600 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Animations</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+          <div class="font-semibold mb-2">Caret blink</div>
+          <div class="flex items-center gap-2">
+            <input class="w-full bg-transparent outline-none border-4 border-black rounded-heavy px-3 py-2" placeholder="Type…" />
+            <span class="w-2 h-6 bg-coal animate-caretBlink"></span>
+          </div>
+        </div>
+        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+          <div class="font-semibold mb-2">Drop-in</div>
+          <div id="dropBtn" class="bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm inline-block cursor-pointer">Toggle</div>
+          <div id="dropBox" class="hidden mt-3 border-4 border-black rounded-heavy p-4 bg-off shadow-longSm">I drop in smoothly.</div>
+        </div>
+        <div class="border-4 border-black rounded-super p-6 bg-off shadow-long">
+          <div class="font-semibold mb-2">Pop-in & Ripple</div>
+          <button id="popBtn" class="ripple-wrap bg-saffron-500 border-4 border-black px-4 py-2 rounded-heavy shadow-longSm">Click Me</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Layout dividers -->
+    <section id="dividers" class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-saffron-700 border-2 border-black"></div>
+        <h2 class="text-3xl md:text-4xl font-semibold uppercase">Section Dividers</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="h-3 bg-saffron-500 border-4 border-black rounded-heavy shadow-longSm w-2/3"></div>
+        <div class="h-3 bg-amber-500 border-4 border-black rounded-heavy shadow-longSm w-1/2 ml-8"></div>
+        <div class="h-3 bg-gold-500 border-4 border-black rounded-heavy shadow-longSm w-3/4 ml-16"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-10 border-t-4 border-black mt-16 bg-off">
+    <div class="max-w-7xl mx-auto px-6 text-sm flex flex-wrap items-center gap-3">
+      <span class="px-2 py-1 bg-saffron-500 border-2 border-black long-shadow">Flat • Geometric • Saffron</span>
+      <span class="px-2 py-1 bg-amber-500 border-2 border-black long-shadow">8px Grid</span>
+      <span class="px-2 py-1 bg-gold-500 border-2 border-black long-shadow">Long Shadows</span>
+    </div>
+  </footer>
+
+  <script>
+    // Activate Lucide
+    lucide.createIcons();
+
+    // Profile ripple coordinates
+    const profileBtn = document.getElementById('profileBtn');
+    if (profileBtn) {
+      profileBtn.addEventListener('pointerdown', (e) => {
+        const rect = profileBtn.getBoundingClientRect();
+        const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+        profileBtn.style.setProperty('--x', x + 'px');
+        profileBtn.style.setProperty('--y', y + 'px');
+      });
+    }
+
+    // Hero dropdown logic (appears when typing)
+    const input = document.getElementById('searchInput');
+    const dropdown = document.getElementById('dropdown');
+    if (input && dropdown) {
+      let open = false;
+      const toggle = (show) => {
+        if (show) {
+          dropdown.classList.remove('hidden');
+          dropdown.classList.add('animate-dropIn');
+          open = true;
+        } else {
+          dropdown.classList.add('hidden');
+          dropdown.classList.remove('animate-dropIn');
+          open = false;
+        }
+      };
+      input.addEventListener('input', (e) => {
+        const v = e.target.value.trim();
+        toggle(v.length > 0);
+      });
+      document.addEventListener('click', (e) => {
+        if (!open) return;
+        const within = e.target.closest('#dropdown') || e.target.closest('#searchInput');
+        if (!within) toggle(false);
+      });
+    }
+
+    // Drop-in demo
+    const dropBtn = document.getElementById('dropBtn');
+    const dropBox = document.getElementById('dropBox');
+    if (dropBtn && dropBox) {
+      dropBtn.addEventListener('click', () => {
+        const hidden = dropBox.classList.contains('hidden');
+        if (hidden) {
+          dropBox.classList.remove('hidden');
+          dropBox.classList.add('animate-dropIn');
+        } else {
+          dropBox.classList.add('hidden');
+          dropBox.classList.remove('animate-dropIn');
+        }
+      });
+    }
+
+    // Pop-in on click
+    const popBtn = document.getElementById('popBtn');
+    if (popBtn) {
+      popBtn.addEventListener('click', () => {
+        popBtn.classList.remove('animate-popIn');
+        void popBtn.offsetWidth; // restart
+        popBtn.classList.add('animate-popIn');
+      });
+    }
+  </script>
+</body>
+</html>
